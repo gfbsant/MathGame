@@ -33,16 +33,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MathGameScreen() {
-    var currentQuestion by remember { mutableStateOf(1) }
+    var questao by remember { mutableStateOf(1) }
     var num1 by remember { mutableStateOf(Random.nextInt(100)) }
     var num2 by remember { mutableStateOf(Random.nextInt(100)) }
-    var correctAnswer by remember { mutableStateOf(num1 + num2) }
-    var userAnswer by remember { mutableStateOf("") }
-    var feedbackMessage by remember { mutableStateOf("") }
+    var correta by remember { mutableStateOf(num1 + num2) }
+    var respUser by remember { mutableStateOf("") }
+    var feedback by remember { mutableStateOf("") }
     var score by remember { mutableStateOf(0) }
     var backgroundColor by remember { mutableStateOf(Color.White) }
 
-    if (currentQuestion <= 5) {
+    if (questao <= 5) {
         Scaffold(modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
@@ -54,13 +54,13 @@ fun MathGameScreen() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Questão $currentQuestion: $num1 + $num2 = ?")
+                Text(text = "Questão $questao: $num1 + $num2 = ?")
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 BasicTextField(
-                    value = userAnswer,
-                    onValueChange = { userAnswer = it },
+                    value = respUser,
+                    onValueChange = { respUser = it },
                     modifier = Modifier
                         .background(Color.LightGray)
                         .padding(8.dp)
@@ -69,21 +69,21 @@ fun MathGameScreen() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(onClick = {
-                    val userAns = userAnswer.toIntOrNull()
-                    if (userAns == correctAnswer) {
-                        feedbackMessage = "Correto!"
+                    val userAns = respUser.toIntOrNull()
+                    if (userAns == correta) {
+                        feedback = "Correto!"
                         backgroundColor = Color.Green
                         score += 20
                     } else {
-                        feedbackMessage = "Errado! Resposta correta: $correctAnswer"
+                        feedback = "Errado! Resposta correta de : $num1 + $num2 = $correta"
                         backgroundColor = Color.Red
                     }
-                    currentQuestion++
-                    if (currentQuestion <= 5) {
+                    questao++
+                    if (questao <= 5) {
                         num1 = Random.nextInt(100)
                         num2 = Random.nextInt(100)
-                        correctAnswer = num1 + num2
-                        userAnswer = ""
+                        correta = num1 + num2
+                        respUser = ""
                         backgroundColor = Color.White
                     }
                 }) {
@@ -92,7 +92,7 @@ fun MathGameScreen() {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text(text = feedbackMessage)
+                Text(text = feedback)
             }
         }
     } else {
