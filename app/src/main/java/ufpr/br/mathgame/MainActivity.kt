@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tvExpression = findViewById(R.id.tvExpression)
-        tvMessage = findViewById(R.id.tvExpression)
+        tvMessage = findViewById(R.id.tvMessage)
         etAnswer = findViewById(R.id.etAnswer)
         btnSubmit = findViewById(R.id.btnSubmit)
         btnNext = findViewById(R.id.btnNext)
